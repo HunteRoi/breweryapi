@@ -1,5 +1,4 @@
 # Missing
-- migrations
 - seeding
 - repositories
 - controllers
