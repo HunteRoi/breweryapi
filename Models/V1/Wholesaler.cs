@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models.V1
 {
-    public class Wholesaler
+    public class Wholesaler : IEntity
     {
         #region properties
         [Key]
@@ -46,11 +46,15 @@ namespace Models.V1
             return this;
         }
 
+        public bool Equals(Wholesaler other)
+        {
+            if (other == null) return false;
+            return Id == other.Id;
+        }
+
         public override bool Equals(object obj)
         {
-            var wholesaler = obj as Wholesaler;
-            if (wholesaler == null) return false;
-            return Id == wholesaler.Id;
+            return Equals(obj as Wholesaler);
         }
 
         public override int GetHashCode()
@@ -60,10 +64,11 @@ namespace Models.V1
 
         public override string ToString() => Name;
 
-        public Wholesaler AddStock(int quantity, Beer beer, Wholesaler wholesaler)
+        public Wholesaler AddStock(int quantity, Beer beer)
         {
-            return AddStock(new Stock(quantity, beer, wholesaler));
+            return AddStock(new Stock(quantity, beer, this));
         }
+
         private Wholesaler AddStock(Stock stock)
         {
             if (stock is null) throw new ArgumentNullException(nameof(stock));
@@ -75,7 +80,7 @@ namespace Models.V1
             return this;
         }
 
-        public Wholesaler ChangeQuantity(Beer beer, int quantity)
+        public Wholesaler AddQuantity(int quantity, Beer beer)
         {
             if (beer is null) throw new ArgumentNullException(nameof(beer));
 

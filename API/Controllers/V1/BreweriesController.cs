@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Linq;
+using Business;
 
 namespace API.Controllers.V1
 {
@@ -32,7 +33,7 @@ namespace API.Controllers.V1
             Description = "Requests a page of breweries not to load a lot of breweries on one request. The index and the page size are optional. The request returns an array of breweries based on the parameters, with the associated beers and wholesalers."
         )]
         [SwaggerResponse((int)HttpStatusCode.OK, "Returns an array of breweries.", typeof(IEnumerable<DTOs.Brewery>))]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, type: typeof(ClientSideError))]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetAll(string filter = null, int pageIndex = Constants.PageIndex, int pageSize = Constants.PageSize)
         {
@@ -61,5 +62,6 @@ namespace API.Controllers.V1
             if (entity is null) return NotFound();
             return Ok(Mapper.Map<DTOs.Brewery>(entity));
         }
+
     }
 }

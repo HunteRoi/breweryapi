@@ -19,7 +19,7 @@ namespace DTO.V1.WholesalerRequest
             profile.CreateMap<Models.V1.Wholesaler, Wholesaler>()
                 .ForMember(d => d.Id, s => s.MapFrom(entity => entity.Id))
                 .ForMember(d => d.Name, s => s.MapFrom(entity => entity.Name))
-                .ForMember(d => d.Stocks, s => s.MapFrom(entity => entity.Stocks))                
+                .ForMember(d => d.Stocks, s => s.MapFrom(entity => entity.Stocks));        
         }
     }
 }

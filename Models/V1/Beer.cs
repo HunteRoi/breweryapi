@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models.V1
 {
-    public class Beer
+    public class Beer : IEntity, IEquatable<Beer>
     {
         #region properties
         [Key]
@@ -41,11 +41,15 @@ namespace Models.V1
         #endregion
 
         #region methods
+        public bool Equals(Beer other)
+        {
+            if (other is null) return false;
+            return Id == other.Id;
+        }
+
         public override bool Equals(object obj)
         {
-            var beer = obj as Beer;
-            if (beer is null) return false;
-            return Id == beer.Id;
+            return Equals(obj as Beer);
         }
 
         public override int GetHashCode()

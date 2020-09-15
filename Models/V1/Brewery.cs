@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Models.V1
 {
-    public class Brewery
+    public class Brewery : IEntity, IEquatable<Brewery>
     {
         #region properties
         [Key]
@@ -39,11 +40,15 @@ namespace Models.V1
         #endregion
 
         #region methods
+        public bool Equals(Brewery other)
+        {
+            if (other is null) return false;
+            return Id == other.Id;
+        }
+
         public override bool Equals(object obj)
         {
-            var brewery = obj as Brewery;
-            if (brewery is null) return false;
-            return Id == brewery.Id;
+            return Equals(obj as Brewery);
         }
 
         public override int GetHashCode()

@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Models.V1;
 using System;
 using System.Reflection;
 
@@ -36,8 +35,8 @@ namespace API
                 .AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)))
                 .AddContext(connectionString)
                 .AddScoped<BreweryRepository>()
-                .AddScoped<RepositoryBase<Beer>>()
-                .AddScoped<RepositoryBase<Wholesaler>>()
+                .AddScoped<BeerRepository>()
+                .AddScoped<WholesalerRepository>()
                 .AddControllers(options => {
                     options.Filters.Add(new CustomExceptionFilter());
                     options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));

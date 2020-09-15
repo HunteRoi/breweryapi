@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DTO.V1.BeerRequest
 {
-    public class Beer : IMapFrom<Models.V1.Beer>
+    public class CreateBeer : IMapFrom<Models.V1.Beer>
     {
-        public int? Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 
@@ -22,12 +20,16 @@ namespace DTO.V1.BeerRequest
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Models.V1.Beer, Beer>()
-                .ForMember(d => d.Id, s => s.MapFrom(entity => entity.Id))
+            profile.CreateMap<Models.V1.Beer, CreateBeer>()
                 .ForMember(d => d.Name, s => s.MapFrom(entity => entity.Name))
                 .ForMember(d => d.AlcoholLevel, s => s.MapFrom(entity => entity.AlcoholLevel))
                 .ForMember(d => d.Price, s => s.MapFrom(entity => entity.Price))
                 .ForMember(d => d.BreweryId, s => s.MapFrom(entity => entity.Brewery.Id));
+        }
+
+        public Beer Clone()
+        {
+            return (Beer)MemberwiseClone();
         }
     }
 }

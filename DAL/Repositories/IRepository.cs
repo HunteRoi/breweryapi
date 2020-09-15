@@ -1,10 +1,11 @@
 ﻿using DTO;
+using Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class, IEntity
     {
         int Count();
 
@@ -20,9 +21,9 @@ namespace DAL.Repositories
 
         Task<T[]> ReadAllWithFilterAsync(string filter = null, int pageIndex = Constants.PageIndex, int pageSize = Constants.PageSize);
 
-        void Add(T entity);
+        T Add(T entity);
 
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
 
         T Edit(T entity);
 

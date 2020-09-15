@@ -10,7 +10,6 @@ namespace API.Controllers.V1
 
         protected IMapper Mapper { get; set; }
         
-
         public BaseController(ILogger<TController> logger, IMapper mapper)
         {
             Logger = logger;

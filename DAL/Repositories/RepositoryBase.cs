@@ -5,10 +5,11 @@ using DTO;
 using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Models;
 
 namespace DAL.Repositories
 {
-    public class RepositoryBase<T> : IRepository<T> where T : class
+    public class RepositoryBase<T> : IRepository<T> where T : class, IEntity
     {
         protected readonly ILogger<RepositoryBase<T>> _logger;
         protected BreweryDbContext Context { get; }
@@ -58,19 +59,21 @@ namespace DAL.Repositories
             return Task.FromResult(ReadAll());
         }
 
-        public Task<T[]> ReadAllWithFilterAsync(string filter = null, int pageIndex = Constants.PageIndex, int pageSize = Constants.PageSize)
+        public virtual Task<T[]> ReadAllWithFilterAsync(string filter = null, int pageIndex = Constants.PageIndex, int pageSize = Constants.PageSize)
         {
             return Task.FromResult(GetDbSet().TakePage(pageIndex, pageSize).ToArray());
         }
 
-        public virtual void Add(T entity)
+        public virtual T Add(T entity)
         {
-            Context.Add(entity);
+            var entityEntry = Context.Add<T>(entity);
+            return entityEntry.Entity;
         }
 
-        public virtual async Task AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
-            await Context.AddAsync(entity);
+            var entityEntry = await Context.AddAsync(entity);
+            return entityEntry.Entity;
         }
 
         public virtual T Edit(T entity)

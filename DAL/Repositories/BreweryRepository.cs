@@ -31,13 +31,16 @@ namespace DAL.Repositories
         public new Task<Brewery[]> ReadAllWithFilterAsync(string filter = null, int pageIndex = Constants.PageIndex, int pageSize = Constants.PageSize)
         {
             bool hasFilter = !string.IsNullOrWhiteSpace(filter);
-            if (hasFilter) filter = filter.ToLowerInvariant();
+            if (hasFilter) filter = filter.ToLower();
 
             return GetDbSet()
                 .Include(br => br.Beers)
                     .ThenInclude(b => b.Stocks)
                         .ThenInclude(s => s.Wholesaler)
-                .Where(br => !hasFilter || br.Name.ToLowerInvariant().Equals(filter))
+                .Where(br => !hasFilter
+                    || br.Name.ToLower().Contains(filter)
+                    || br.Beers.Any(b => b.Name.ToLower().Contains(filter))
+                    || br.Beers.SelectMany(b => b.Stocks).Any(s => s.Wholesaler.Name.ToLower().Contains(filter)))
                 .OrderBy(br => br.Id)
                 .TakePage(pageIndex, pageSize)
                 .ToArrayAsync();
