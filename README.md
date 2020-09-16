@@ -11,7 +11,7 @@
   <h3 align="center">Brewery API</h3>
 
   <p align="center">
-    An API to get beers, breweries and related grosseries.
+    An API to get beers, breweries and related wholesalers.
     <br />
     <a href="https://github.com/hunteroi/breweryapi/issues">Report Bug</a>
     ·
