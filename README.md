@@ -39,7 +39,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The codebase of this project has been taken from my own template located [here](https://github.com/hunteroi/aspnetcore3.1-backend-boilerplate). A few features were removed from that template in order to lower the complexity of the project and to ease of the development of **Brewery API**.
+The codebase of this project has been taken from my own template located [here](https://github.com/hunteroi/aspnetcore3.1-backend-boilerplate). A few features were removed from that template in order to lower the complexity of the project and to ease the development of **Brewery API**.
 
 ### Built With
 
@@ -68,15 +68,16 @@ You also need to create an environment variable to store the connection string t
 ```sh
 git clone https://github.com/hunteroi/breweryapi.git
 ```
-2. Install NuGet packages
+2. Set the root of your terminal to the `src` folder
+3. Install NuGet packages
 ```sh
 dotnet restore
 ```
-3. Build the project
+4. Build the project
 ```sh
 dotnet build
 ```
-4. Run it
+5. Run it
 ```sh
 dotnet run
 ```
