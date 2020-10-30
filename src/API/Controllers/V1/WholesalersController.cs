@@ -65,7 +65,7 @@ namespace API.Controllers.V1
             return Ok(Mapper.Map<DTOs.Wholesaler>(entity));
         }
 
-        [HttpPost("{wholesalerId}")]
+        [HttpPost("{wholesalerId}/orders")]
         [SwaggerOperation(Summary = "Place an order to a wholesaler.", Description = "Asks the wholesaler for an quote of an order")]
         [SwaggerResponse((int)HttpStatusCode.OK, "The order was successfully placed.")]
         [SwaggerResponse((int)HttpStatusCode.NotFound, "The wholesaler does not exist.")]
